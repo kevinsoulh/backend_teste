@@ -1,0 +1,10 @@
+Execute primeiro a rota de login para salvar o access token da api.
+
+Não se preocupe, o token será salvo automaticamente nas variável de ambiente gloabal chamada "token" no postman.
+
+OBS: O servidor em si tem um delay de 20 segundos para iniciar após fazer a build.
+
+OBS2: Para acesssar o phpmyadmin basta entrar na rota localhost:9001
+Server: database
+User: root
+Password: root

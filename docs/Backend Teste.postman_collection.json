@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "e045d3cd-96a0-4778-85b2-6b115aae84cb",
+		"name": "Backend Teste",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30893108"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    var responseJson = pm.response.json();\r",
+									"    \r",
+									"    var accessToken = responseJson.access_token;\r",
+									"    \r",
+									"    pm.globals.set('token', accessToken);\r",
+									"    \r",
+									"    console.log('Token de accesso salvo com successo:', accessToken);\r",
+									"} else {\r",
+									"    console.log('Token não encontrado. Erro:', pm.response.code);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estratégia",
+			"item": [
+				{
+					"name": "Create Estratégia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dsEstrategia\": \"RETIRA\",\r\n  \"nrPrioridade\": 10,\r\n  \"horarios\": [\r\n    {\r\n      \"dsHorarioInicio\": \"09:00\",\r\n      \"dsHorarioFinal\": \"10:00\",\r\n      \"nrPrioridade\": 40\r\n    },\r\n    {\r\n      \"dsHorarioInicio\": \"10:01\",\r\n      \"dsHorarioFinal\": \"11:00\",\r\n      \"nrPrioridade\": 30\r\n    },\r\n    {\r\n      \"dsHorarioInicio\": \"11:01\",\r\n      \"dsHorarioFinal\": \"12:00\",\r\n      \"nrPrioridade\": 20\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/estrategiaWMS",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"estrategiaWMS"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Estratégia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/estrategiaWMS/1/09/30/prioridade",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"estrategiaWMS",
+								"1",
+								"09",
+								"30",
+								"prioridade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Estratégia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/estrategiaWMS/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"estrategiaWMS",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
